@@ -5,10 +5,20 @@ A quiet Android TV home screen for a TCL 55P715 (Android 9). A thin clock, a **D
 background. No ads, no recommendations.
 
 - Move with the D-pad. The focused tile grows, gets a white ring and shows its name.
-- **Long-press OK** on an app: Add to / Remove from Daily, Hide, App info.
-- **All apps** lists everything. Long-press **Settings** to bring hidden apps back.
-- Back does nothing. Home jumps to the first tile.
-- The three streaming apps get thin white line icons. Any other app uses its own icon.
+- The home screen is one **Daily** row: Netflix, Prime Video and YouTube (whichever are installed)
+  with thin white marks and a faint brand glow, then an **Other apps** tile.
+- Select **Other apps** to open a popup with every other app. Press Back to close it.
+  The last tile in the popup is Settings.
+- **Long-press OK** on an app (on the row or in the popup): Add to / Remove from Daily, Hide, App info.
+- Long-press **Settings** in the popup to bring hidden apps back.
+- Back does nothing on the home screen. Home jumps to the first tile.
+
+## Screensaver
+
+Calm Launcher also installs a screensaver: the photos full screen with a very large thin clock that
+drifts slowly so nothing burns in. Turn it on under
+**Settings > Device Preferences > Screen saver > Screen saver > Calm Launcher**, and set the idle time
+under **When to start**. (Not yet tried on a real TV.)
 
 ## Background
 

@@ -4,18 +4,8 @@
     android:height="48dp"
     android:viewportWidth="48"
     android:viewportHeight="48">
+    <!-- The triangle runs the opposite way round the rounded box, so it is cut out of it. -->
     <path
-        android:fillColor="#00000000"
-        android:pathData="M14,11H34A9,9 0 0 1 43,20V28A9,9 0 0 1 34,37H14A9,9 0 0 1 5,28V20A9,9 0 0 1 14,11Z"
-        android:strokeColor="#FFFFFF"
-        android:strokeLineCap="round"
-        android:strokeLineJoin="round"
-        android:strokeWidth="1.6" />
-    <path
-        android:fillColor="#00000000"
-        android:pathData="M20,17.5L31,24L20,30.5Z"
-        android:strokeColor="#FFFFFF"
-        android:strokeLineCap="round"
-        android:strokeLineJoin="round"
-        android:strokeWidth="1.6" />
+        android:fillColor="#FFFFFF"
+        android:pathData="M14,10h20a9,9 0 0 1 9,9v10a9,9 0 0 1 -9,9H14a9,9 0 0 1 -9,-9V19a9,9 0 0 1 9,-9zM20,16.5v15l13,-7.5z" />
 </vector>
