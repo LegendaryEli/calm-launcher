@@ -12,12 +12,13 @@ background. No ads, no recommendations.
 
 ## Background
 
-With no photos the app draws Mount Fuji and cycles dusk, night and dawn. To use photos instead,
-put JPG, PNG or WebP files in `app/src/main/assets/scenes/`. They crossfade every 20 seconds
-with a slow zoom. Use licensed images (Unsplash, Pexels, or your own), landscape, at least
-1920 px wide, with calm sky at the top left and nothing bright along the bottom third.
-The file name is the caption: `03-Kyoto_bamboo.jpg` shows "Kyoto bamboo" (a leading number sets the
-order and is not shown).
+Twelve Unsplash photos of Japan (credits in `CREDITS.md`) crossfade every 20 seconds with a slow
+zoom. Bright photos are darkened automatically so the clock stays readable. With no photos the app
+draws Mount Fuji and cycles dusk, night and dawn.
+
+To change the set, edit the files in `app/src/main/assets/scenes/` (JPG, PNG or WebP, landscape,
+about 2560 px wide is plenty). Use licensed images. The file name is the caption:
+`03-Kyoto_bamboo.jpg` shows "Kyoto bamboo". A leading number sets the order and is not shown.
 
 ## Build without a computer (from an iPad)
 

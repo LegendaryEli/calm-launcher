@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.LinearGradient;
 import android.graphics.Paint;
 import android.graphics.Path;
@@ -77,6 +78,8 @@ public class SceneView extends View {
     private Bitmap nxt;
     private int curIdx;
     private int nxtIdx;
+    private float curDim = 0.22f;
+    private float nxtDim = 0.22f;
     private long curStart;
     private long introStart;
     private long fadeStart;
@@ -155,6 +158,7 @@ public class SceneView extends View {
             if (fade >= 1f) {
                 Bitmap old = cur;
                 cur = nxt;
+                curDim = nxtDim;
                 curIdx = nxtIdx;
                 curStart = fadeStart;
                 nxt = null;
@@ -168,7 +172,31 @@ public class SceneView extends View {
         if (nxt != null && fade > 0f) {
             drawCover(c, nxt, w, h, zoom(now - fadeStart), Math.round(255 * fade));
         }
-        c.drawColor(0x38050614);
+        float dim = nxt != null && fadeStart != 0 ? curDim + (nxtDim - curDim) * fade : curDim;
+        c.drawColor((Math.round(255 * dim) << 24) | 0x050614);
+    }
+
+    /** Darker overlay for bright photos (and a bright top-left corner) so the clock stays readable. */
+    private static float dimFor(Bitmap b) {
+        Bitmap s = Bitmap.createScaledBitmap(b, 32, 18, true);
+        float all = 0;
+        float corner = 0;
+        int nCorner = 0;
+        for (int y = 0; y < 18; y++) {
+            for (int x = 0; x < 32; x++) {
+                int p = s.getPixel(x, y);
+                float l = (0.2126f * Color.red(p) + 0.7152f * Color.green(p) + 0.0722f * Color.blue(p)) / 255f;
+                all += l;
+                if (x < 14 && y < 8) {
+                    corner += l;
+                    nCorner++;
+                }
+            }
+        }
+        if (s != b) s.recycle();
+        float lum = Math.max(all / (32 * 18), corner / nCorner);
+        float t = Math.max(0f, Math.min(1f, (lum - 0.30f) / 0.45f));
+        return 0.16f + 0.34f * t;
     }
 
     private static float zoom(long elapsedMs) {
@@ -193,6 +221,7 @@ public class SceneView extends View {
         try {
             loader.execute(() -> {
                 final Bitmap b = decode(name);
+                final float dim = b == null ? 0.22f : dimFor(b);
                 post(() -> {
                     loading = false;
                     if (b == null) {
@@ -201,12 +230,14 @@ public class SceneView extends View {
                     }
                     if (first) {
                         cur = b;
+                        curDim = dim;
                         curIdx = idx;
                         introStart = SystemClock.uptimeMillis();
                         curStart = introStart;
                         setCaption(captionFor(idx));
                     } else {
                         nxt = b;
+                        nxtDim = dim;
                         nxtIdx = idx;
                     }
                 });
